@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="formValidasi" onsubmit="return validasiForm(event)">
+    <label for="nama">Nama:</label><br>
+    <input type="text" id="nama"><br><br>
+
+    <label for="nilai">Nilai (0–100):</label><br>
+    <input type="number" id="nilai"><br><br>
+
+    <button type="submit">Kirim</button>
+</form>
+<p id="pesanError" style="color: red;"></p>
+
+
+
+
+    <script>
+        function validasiForm(event) {
+    event.preventDefault(); // Mencegah form terkirim otomatis
+
+    const inputNama = document.getElementById("nama").value.trim();
+    const inputNilai = document.getElementById("nilai").value;
+    const pesanError = document.getElementById("pesanError");
+
+    // Validasi nama tidak boleh kosong
+    if (inputNama === "") {
+        pesanError.textContent = "Nama tidak boleh kosong!";
+        return false;
+    }
+
+    // Validasi nilai tidak kosong dan berada pada rentang 0-100
+    if (inputNilai === "" || isNaN(inputNilai)) {
+        pesanError.textContent = "Nilai harus diisi dengan angka!";
+        return false;
+    }
+
+    const angkaNilai = Number(inputNilai);
+    if (angkaNilai < 0 || angkaNilai > 100) {
+        pesanError.textContent = "Nilai harus berada pada rentang 0 sampai 100!";
+        return false;
+    }
+
+    // Jika semua validasi berhasil
+    pesanError.style.color = "green";
+    pesanError.textContent = "Validasi berhasil! Form siap dikirim.";
+    return true;
+}
+    </script>
+</body>
+</html>
